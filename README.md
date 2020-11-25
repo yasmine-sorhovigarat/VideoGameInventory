@@ -3,10 +3,10 @@
 This is a backend service that serves as an inventory for Video Games. It contains information such as the title, platform, and if the user finished the game. 
 It uses teh following technologies: Java 8, JDBC, Servlets, Tomcat 9.0, PostgreSQL, JUnit4, Maven, jlog4j...
 
-## GET all videogames
+## GET all video games
 http://localhost:8080/VideoGameInventory/VideoGameServlet
 
-## GET videogames by completion status or id
+## GET video games by completion status or id
 http://localhost:8080/VideoGameInventory/VideoGameServlet?isFinished=true
 http://localhost:8080/VideoGameInventory/VideoGameServlet?id=1
 ...
@@ -32,11 +32,17 @@ You will have to download the following in order to set up the app locally:
 ## Setup
 
 1. clone the application from repository
+ git clone https://github.com/yasmine-sorhovigarat/VideoGameInventory.git
 
-> git clone https://github.com/yasmine-sorhovigarat/VideoGameInventory.git
+2. Run `MakeDatabaseScript.sql` to set up the database. 
 
-2. Pre-populate the db using the `MakeDatabaseScript.sql` file that is provided
+3. Setup tomcat to run locally. 
 
-1. setup tomcat
-- IDE:
-    - setup tomcat to run virtually within your ide
+4. Use Postman to GET/POST/PUT/DELETE
+    
+## Logging
+The following are logged: 
+
+1. When an admin signs in. 
+2. When a game is deleted.
+3. When a game is created. 
