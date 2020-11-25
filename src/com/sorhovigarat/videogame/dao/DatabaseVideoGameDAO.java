@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 import com.sorhovigarat.videogame.model.VideoGame;
 import com.sorhovigarat.videogame.util.DBConnection;
 
@@ -58,11 +60,6 @@ public class DatabaseVideoGameDAO {
 			boolean isFinished = videoGame.isFinished();
 			
 			
-//			pstmt.setString(1, videoGame.getTitle());
-//			pstmt.setString(2, videoGame.getPlatform());
-//			pstmt.setDouble(3, videoGame.getPrice());
-//			pstmt.setBoolean(4, videoGame.isFinished());
-			
 			pstmt.setString(1, title);
 			pstmt.setString(2, platform);
 			pstmt.setBoolean(3, isFinished);
@@ -70,7 +67,8 @@ public class DatabaseVideoGameDAO {
 			pstmt.executeUpdate();
 			
 			
-			//return new VideoGame(pstmt.getGeneratedKeys().getInt(1), videoGame.getTitle(), videoGame.getPlatform(), videoGame.isFinished());
+			Logger logger = Logger.getLogger(DatabaseVideoGameDAO.class);
+			logger.debug(videoGame.toString() + " was created. (Log4j 1)");
 			return new VideoGame(videoGame.getTitle(), videoGame.getPlatform(), videoGame.isFinished());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,6 +111,9 @@ public class DatabaseVideoGameDAO {
 			pstmt.setInt(1, id);
 			
 			pstmt.executeUpdate();
+			
+			Logger logger = Logger.getLogger(DatabaseVideoGameDAO.class);
+			logger.debug("A video game was deleted. (Log4j 1)");
 			
 			return true;
 		} catch (SQLException e) {

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.apache.log4j.Logger;
 
 import com.sorhovigarat.videogame.model.User;
 import com.sorhovigarat.videogame.util.DBConnection;
@@ -27,6 +28,9 @@ public String checkUser(String username, String password) {
 			while (rs.next()) {
 				if(rs.getInt(4) == 1)
 				{
+					Logger logger = Logger.getLogger(DatabaseUserDAO.class);
+					logger.debug("Admin logged in! (Log4j 1)");
+					
 					return "Hello " + username + ". You are signed in with an admin account.";
 				}
 				else if(rs.getInt(4) == 2)
