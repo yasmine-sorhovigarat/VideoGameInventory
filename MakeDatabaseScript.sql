@@ -1,0 +1,20 @@
+CREATE TABLE roles (
+	roleID SERIAL PRIMARY KEY,
+	title VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE users (
+	userID SERIAL PRIMARY KEY,
+	username VARCHAR(255) NOT NULL UNIQUE,
+	passphrase VARCHAR(255) NOT NULL,
+	roleID INT NOT NULL,
+	CONSTRAINT fk_role  FOREIGN KEY(roleID) 
+	  REFERENCES roles(roleID) MATCH FULL
+);
+
+CREATE TABLE videoGames (
+	videoGameID SERIAL PRIMARY KEY,
+	title VARCHAR(255) NOT NULL,
+	platform VARCHAR(255),
+	isFinished bool
+	);
