@@ -31,13 +31,48 @@ public class VideoGameServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String isFinished = request.getParameter("isFinished");
+		String id = request.getParameter("id");
 		PrintWriter out = response.getWriter();
 		
-		ArrayList<VideoGame> videoGameList = videoGameService.getAllVideoGames();
-		for(int i = 0; i < videoGameList.size(); i++)
+		if(isFinished == null && id == null)
+		{	
+			ArrayList<VideoGame> videoGameList = videoGameService.getAllVideoGames();
+			for(int i = 0; i < videoGameList.size(); i++)
+			{
+				out.println(videoGameList.get(i).toString());
+			}	
+		}
+		else if(isFinished != null) {
+			ArrayList<VideoGame> videoGameList = videoGameService.getFilteredVideoGamesByIsFinished(isFinished);
+			if(videoGameList.size() > 0)
+			{
+				for(int i = 0; i < videoGameList.size(); i++)
+				{
+					out.println(videoGameList.get(i).toString());
+				}
+			}
+			else
+			{
+				out.println("No video games found with those filters.");
+			}
+		}
+		else if(id != null)
 		{
-			out.println(videoGameList.get(i).toString());
-		}		
+			ArrayList<VideoGame> videoGameList = videoGameService.getFilteredVideoGamesById(id);
+			if(videoGameList.size() > 0)
+			{
+				for(int i = 0; i < videoGameList.size(); i++)
+				{
+					out.println(videoGameList.get(i).toString());
+				}
+			}
+			else
+			{
+				out.println("No video games found with those filters.");
+			}
+		}
+		
 	}
 
 	/**

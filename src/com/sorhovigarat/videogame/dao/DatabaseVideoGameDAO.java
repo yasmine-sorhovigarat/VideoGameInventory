@@ -117,8 +117,70 @@ public class DatabaseVideoGameDAO {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
+		}		
 		return false;
+	}
+
+	public ArrayList<VideoGame> getFilteredVideoGamesByIsFinished(String filterValue) {
+		
+		String sqlQuery = "SELECT * "
+				+ "FROM videogames "
+				+ "WHERE isFinished = ?";
+			
+		ArrayList<VideoGame> videoGames = new ArrayList<>();
+		
+		try (Connection connection = DBConnection.getConnection()) {
+			PreparedStatement pstmt = connection.prepareStatement(sqlQuery);
+			
+			pstmt.setBoolean(1, Boolean.parseBoolean(filterValue));
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				String title = rs.getString(2);
+				String platform = rs.getString(3);
+				boolean isFinished = rs.getBoolean(4);
+				
+				VideoGame videoGame = new VideoGame(id, title, platform, isFinished);
+				
+				videoGames.add(videoGame);
+			}			
+			return videoGames;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return null;
+	}
+
+	public ArrayList<VideoGame> getFilteredVideoGamesById(String filterid) {
+		String sqlQuery = "SELECT * "
+				+ "FROM videogames "
+				+ "WHERE videogameid = ?";
+			
+		ArrayList<VideoGame> videoGames = new ArrayList<>();
+		
+		try (Connection connection = DBConnection.getConnection()) {
+			PreparedStatement pstmt = connection.prepareStatement(sqlQuery);
+			
+			pstmt.setInt(1, Integer.parseInt(filterid));
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				String title = rs.getString(2);
+				String platform = rs.getString(3);
+				boolean isFinished = rs.getBoolean(4);
+				
+				VideoGame videoGame = new VideoGame(id, title, platform, isFinished);
+				
+				videoGames.add(videoGame);
+			}			
+			return videoGames;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
+		return null;
 	}
 }

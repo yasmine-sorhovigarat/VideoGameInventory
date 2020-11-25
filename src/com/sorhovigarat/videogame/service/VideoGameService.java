@@ -32,4 +32,12 @@ public class VideoGameService {
 	public boolean deleteVideoGame(int id) {
 		return videoGameDAO.deleteVideoGame(id);
 	}
+
+	public ArrayList<VideoGame> getFilteredVideoGamesByIsFinished(String filterValue) {
+		return videoGameDAO.getFilteredVideoGamesByIsFinished(filterValue);
+	}
+
+	public ArrayList<VideoGame> getFilteredVideoGamesById(String id) {
+		return videoGameDAO.getFilteredVideoGamesById(id);
+	}	
 }
